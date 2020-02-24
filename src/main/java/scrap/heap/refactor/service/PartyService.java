@@ -1,5 +1,6 @@
 package scrap.heap.refactor.service;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import scrap.heap.refactor.domain.BalloonOrder;
 import scrap.heap.refactor.domain.CakeOrder;
 
@@ -31,10 +32,11 @@ public class PartyService {
         cakeService = new CakeService();
         balloonService = new BalloonService();
     }
-    //CHECKSTYLE:OFF
-    public void order(BalloonOrder balloonOrder, CakeOrder cakeOrder) {
-        System.out.println(cakeService.order(cakeOrder));
-        System.out.println(balloonService.order(balloonOrder));
+
+    public String order(BalloonOrder balloonOrder, CakeOrder cakeOrder) throws Exception {
+        cakeService.order(cakeOrder);
+        balloonService.order(balloonOrder);
+        String orderConfirmationId = RandomStringUtils.random(12, true, true);
+        return orderConfirmationId;
     }
-    //CHECKSTYLE:ON
 }
