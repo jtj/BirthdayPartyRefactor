@@ -1,38 +1,56 @@
 package scrap.heap.refactor;
 
+import scrap.heap.model.Balloon;
+import scrap.heap.model.Cake;
+import scrap.heap.model.Order;
+
+import java.util.Arrays;
+
 public class App {
+    public static void main(String[] args) {
+        /*
+        Maintenance & Ease of Usage:
+        New Property in Product --> Add new setter in product, no other changes needed
+        New Product             --> Add new model, no other changes needed
+        New items in Order      --> No changes needed
+        New Order in Party      --> No changes needed
+        New Party               --> Add new App/Driver/Party class, no other changes needed
+
+        Conventions:
+        method setter do not has word 'set' in name
+        */
+
+        Balloon redBalloon = new Balloon().color("red").material("mylar");
+        Cake chocolateCake = new Cake().flavor("chocolate").frosting("chocolate").shape("circle").size("large").color("brown");
+        new Order().addItems(
+                Arrays.asList(
+                        new Order.Item().product(redBalloon).quantity(4),
+                        new Order.Item().product(chocolateCake)
+                )
+        ).order();
+
+        Balloon blueBalloon = new Balloon().color("blue").material("latex");
+        Cake vanillaChocolateCake = new Cake().flavor("vanilla").frosting("chocolate").shape("square").size("med").color("brown");
+
+        new Order().addItems(
+                Arrays.asList(
+                        new Order.Item().product(blueBalloon).quantity(7),
+                        new Order.Item().product(vanillaChocolateCake)
+                )
+        ).order();
+
+        Balloon yellowBalloon = new Balloon().color("yellow").material("mylar");
+        Cake vanillaCake = new Cake().flavor("vanilla").frosting("vanilla").shape("square").size("small").color("yellow");
+        new Order().addItems(
+                Arrays.asList(
+                        new Order.Item().product(yellowBalloon).quantity(4),
+                        new Order.Item().product(vanillaCake)
+                )
+        ).order();
+    }
+
     public String getGreeting() {
         return "Hello world.";
-    }
-
-    public static void main(String[] args) {
-
-         //Place birthday party orders
-         order("red", "mylar", "4", "chocolate", "chocolate", "circle", "large", "brown" );
-         order("blue", "latex", "7", "Vanilla", "chocelate", "square", "med", "brown" );
-         order("yellow", "mylar", "4", "vanilla", "vanilla", "square", "small", "yellow" );
-
-    }
-
-    private static void order(String balloonColor, String material, String number, String flavor, String frostingFlavor, String shape, String size, String cakeColor){
-
-        orderBalloons(balloonColor, material, number);
-
-        orderCake(frostingFlavor, flavor, shape, size, cakeColor);
-    }
-
-    private static void orderBalloons(String balloonColor, String material, String number){
-
-        //for the purposes of this exercise, pretend this method works and adds balloons to the order
-        System.out.println("Balloons ordered; " + balloonColor + ", " + material  + ", " + number);
-
-    }
-
-    private static void orderCake(String flavor, String frostingFlavor, String shape, String size, String cakeColor){
-
-        //for the purposes of this exercise, pretend that this method adds a cake to the order
-        System.out.println("cake ordered; " + flavor + ", " + frostingFlavor  + ", " + shape + ", " + size + ", " + cakeColor);
-
     }
 
 }
